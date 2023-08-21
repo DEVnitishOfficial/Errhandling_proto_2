@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fetch API Example</title>
+    <style>
+        body{
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Data:</h1>
+    <div id="data"></div>
+    <div id="error"></div>
+
+    <script>
+        const apiUrl = 'https://jsonplaceholder.typicode.com/posts/123456789'; // use this one for result "https://jsonplaceholder.typicode.com/todos/1"
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok (${response.status} ${response.statusText})`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const dataDiv = document.getElementById('data');
+                dataDiv.innerHTML = `
+                    <p>ID: ${data.id}</p>
+                    <p>Title: ${data.title}</p>
+                    <p>Body: ${data.body}</p>
+                `;
+            })
+            .catch(error => {
+                const errorDiv = document.getElementById('error');
+                errorDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+            });
+    </script>
+</body>
+</html>
